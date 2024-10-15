@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [incorrect, setIncorrect] = useState(0);
-  const [quesNo, setQuesNo] = useState(1);
+  const [count, setCount] = useState(
+    localStorage.getItem("data")
+      ? JSON.parse(localStorage.getItem("data")).count
+      : 0
+  );
+  const [incorrect, setIncorrect] = useState(
+    localStorage.getItem("data")
+      ? JSON.parse(localStorage.getItem("data")).incorrect
+      : 0
+  );
+  const [quesNo, setQuesNo] = useState(
+    localStorage.getItem("data")
+      ? JSON.parse(localStorage.getItem("data")).quesNo
+      : 1
+  );
   const [mark, setMark] = useState(1);
   const [negativeMark, setNegativeMark] = useState(0);
+
+  //store all the data in local storage in json format
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify({ count, incorrect, quesNo }));
+  }, [count, incorrect, quesNo]);
 
   return (
     <div className="container">
@@ -52,6 +69,15 @@ function App() {
         </button>
         <h2>Total Marks: {count * mark - incorrect * negativeMark}</h2>
         <hr />
+        <button
+          onClick={() => {
+            setCount(0);
+            setIncorrect(0);
+            setQuesNo(1);
+          }}
+        >
+          Reset
+        </button>
       </div>
       <div className="footer">
         <p>
