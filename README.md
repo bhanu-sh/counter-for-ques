@@ -39,7 +39,7 @@ This is a simple React application that allows users to keep track of their exam
 
 5. Open your browser and go to:
     ```
-    http://localhost:3000
+    http://localhost:5173
     ```
 
 ## How to Use
